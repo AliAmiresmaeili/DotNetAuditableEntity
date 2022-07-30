@@ -1,4 +1,5 @@
 ﻿using Data.Contracts;
+using Domain;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,6 +22,14 @@ namespace Api.Controllers
         {
             var result = _productRepository.TableNoTracking.ToList();
             return Ok(result);
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> AddProduct(Product model, CancellationToken cancellationToken)
+        {
+            await _productRepository.AddAsync(model, cancellationToken);
+            return Ok("Ok");
         }
     }
 }
