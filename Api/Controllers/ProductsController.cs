@@ -1,7 +1,6 @@
 ﻿using Api.Dto;
 using Data.Contracts;
 using Domain;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers
@@ -10,9 +9,7 @@ namespace Api.Controllers
     [ApiController]
     public class ProductsController : ControllerBase
     {
-
         private readonly IProductRepository _productRepository;
-
         public ProductsController(IProductRepository productRepository)
         {
             _productRepository = productRepository;
@@ -24,7 +21,6 @@ namespace Api.Controllers
             var result = _productRepository.TableNoTracking.ToList();
             return Ok(result);
         }
-
 
         [HttpPost]
         public async Task<IActionResult> AddProduct(RegisterProductDto model, CancellationToken cancellationToken)

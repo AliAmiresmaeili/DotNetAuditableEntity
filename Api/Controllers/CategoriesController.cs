@@ -1,6 +1,5 @@
 ﻿using Data.Contracts;
 using Domain;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers
