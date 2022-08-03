@@ -59,5 +59,6 @@ namespace Api.Controllers
             await _productRepository.UpdateAsync(entity, cancellationToken);
             return Ok("Ok");
         }
+
     }
 }
