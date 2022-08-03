@@ -9,12 +9,13 @@ namespace Api.Controllers
     public class CategoriesController : ControllerBase
     {
 
-
+        private readonly IProductRepository _productRepository;
         private readonly ICategoryRepository _categoryRepository;
 
-        public CategoriesController(ICategoryRepository categoryRepository)
+        public CategoriesController(ICategoryRepository categoryRepository, IProductRepository productRepository)
         {
             _categoryRepository = categoryRepository;
+            _productRepository = productRepository;
         }
 
 
@@ -50,6 +51,10 @@ namespace Api.Controllers
             var entity = await _categoryRepository.GetByIdAsync(cancellationToken, id);
             if (entity == null)
                 return NotFound();
+
+            var isExist = _productRepository.IsExist(x => x.CategoryId == id);
+            if (isExist)
+                return BadRequest("cant delete,already used in products");
 
             await _categoryRepository.DeleteAsync(entity, cancellationToken);
             return Ok("Ok");
