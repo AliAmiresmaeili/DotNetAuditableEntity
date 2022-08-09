@@ -1,6 +1,7 @@
 ﻿using Data.Contracts;
 using Domain;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Api.Controllers
 {
@@ -20,9 +21,9 @@ namespace Api.Controllers
 
 
         [HttpGet]
-        public IActionResult GetCategories()
+        public async Task<IActionResult> GetCategories()
         {
-            var result = _categoryRepository.TableNoTracking.ToList();
+            var result = await _categoryRepository.TableNoTracking.ToListAsync();
             return Ok(result);
         }
 
@@ -57,7 +58,7 @@ namespace Api.Controllers
                 return BadRequest("cant delete,already used in products");
 
             await _categoryRepository.DeleteAsync(entity, cancellationToken);
-            return Ok("Ok");
+            return Ok();
         }
     }
 }
