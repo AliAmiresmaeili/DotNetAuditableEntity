@@ -2,6 +2,7 @@
 using Data.Contracts;
 using Domain;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Api.Controllers
 {
@@ -16,9 +17,9 @@ namespace Api.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetProducts()
+        public async Task<IActionResult> GetProducts()
         {
-            var result = _productRepository.TableNoTracking.ToList();
+            var result = await _productRepository.TableNoTracking.ToListAsync();
             return Ok(result);
         }
 
